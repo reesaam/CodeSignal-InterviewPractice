@@ -1,0 +1,61 @@
+bool sudoku2(char[][] grid)
+{
+    for (int i = 0; i < 9; i++)
+            for (int j = 0; j < 9; j++)
+                if (!exist(grid, i, j))
+                    return false;
+    return true;
+}
+
+public static bool exist(char[][] arr, int row, int col)
+{
+    return (CheckRow(arr, row) && CheckCol(arr, col) && CheckBox(arr, row - row % 3, col - col % 3));
+}
+
+public static bool CheckRow(char[][] arr, int row)
+{
+    HashSet<char> res = new HashSet<char>();
+    
+    for (int i = 0; i < 9; i++)
+    {
+        if (res.Contains(arr[row][i]))
+            return false;
+        if (arr[row][i] != '.')
+            res.Add(arr[row][i]);
+    }
+    return true;
+}
+
+public static bool CheckCol(char[ ][] arr, int col)
+{
+    HashSet<char> res = new HashSet<char>();
+ 
+    for (int i = 0; i < 9; i++) {
+        if (res.Contains(arr[i][col]))
+            return false;
+
+        if (arr[i][col]!= '.')
+            res.Add(arr[i][col]);
+    }
+    return true;
+}
+ 
+public static bool CheckBox(char[][] arr, int startRow, int startCol)
+{
+    HashSet<char> res = new HashSet<char>();
+ 
+    for (int row = 0; row < 3; row++)
+    {
+        for (int col = 0; col < 3; col++)
+        {
+            char current = arr[row + startRow][col + startCol];
+ 
+            if (res.Contains(current))
+                return false;
+                    
+            if (current != '.')
+                res.Add(current);
+        }
+    }
+    return true;
+}
